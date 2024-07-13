@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d29d43b5807244cbb943ca1f403b3d, type: 3}
   m_Name: Wood
   m_EditorClassIdentifier: 
-  currencyName: 
+  currencyName: Wood
   currencySprite: {fileID: 0}
-  currencyModel: {fileID: 0}
+  currencyAmount: 15

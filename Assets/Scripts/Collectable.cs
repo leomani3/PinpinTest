@@ -41,10 +41,8 @@ public class Collectable : MonoBehaviour
         PickUp();
     }
 
-    public void PickUp()
+    public virtual void PickUp()
     {
-        //Logic to increase inventory value
-
         _parentPool.pool.Despawn(gameObject);
     }
 }
