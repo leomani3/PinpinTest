@@ -43,8 +43,6 @@ public class Ressource : MonoBehaviour
     {
         if (_currentLife > 0)
         {
-            print("ReceiveHit : " + damage);
-
             transform.DOShakeScale(0.15f, 0.15f, 3, 90, true);
 
             float damageLeft = damage;
@@ -73,14 +71,13 @@ public class Ressource : MonoBehaviour
 
     public void Drop()
     {
-        print("drop");
         phaseChunks[_currentPhase].SetActive(false);
         ressourceData.chunkVFXPool.pool.Spawn(phaseChunks[_currentPhase].transform.position, Quaternion.identity, ressourceData.chunkVFXPool.pool.transform);
 
         for (int i = 0; i < ressourceData.collectableNumber; i++)
         {
-            Collectable spawnedCollectable = ressourceData.collectablePool.pool.Spawn(phaseChunks[_currentPhase].transform.position, Quaternion.identity, ressourceData.chunkVFXPool.pool.transform).GetComponent<Collectable>();
-            spawnedCollectable.Spawn(ressourceData.collectableValue);
+            Collectable spawnedCollectable = ressourceData.collectablePool.pool.Spawn(phaseChunks[_currentPhase].transform.position, Quaternion.identity, ressourceData.collectablePool.pool.transform).GetComponent<Collectable>();
+            spawnedCollectable.Spawn(ressourceData.collectableValue, ressourceData.collectablePool);
         }
     }
 }

@@ -9,23 +9,24 @@ public class Collectable : MonoBehaviour
     [SerializeField] private float moveSpeed;
 
     protected int value;
+    protected GameObjectPoolReference _parentPool;
 
-    public void Spawn(int val)
+    public void Spawn(int val, GameObjectPoolReference parentPool)
     {
         value = val;
+        _parentPool = parentPool;
 
 
-
-        transform.DORotate(new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)), 1);
-        transform.DOJump(transform.position + new Vector3(Random.Range(-3, 3), Random.Range(1, 3), Random.Range(-3, 3)), 1, 1, 1).OnComplete(Pickup);
+        transform.DORotate(new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)), .75f);
+        transform.DOJump(transform.position + new Vector3(Random.Range(-2, 2), Random.Range(1, 2), Random.Range(-2, 2)), 1, 1, 0.75f).OnComplete(ChasePlayer);
     }
 
-    public void Pickup()
+    public void ChasePlayer()
     {
-        StartCoroutine(PickUpCoroutine());
+        StartCoroutine(ChasePlayerCoroutine());
     }
 
-    private IEnumerator PickUpCoroutine()
+    private IEnumerator ChasePlayerCoroutine()
     {
         while (Vector3.Distance(transform.position, playerPositionData.data) > 0.1f)
         {
@@ -36,5 +37,14 @@ public class Collectable : MonoBehaviour
 
             yield return null;
         }
+
+        PickUp();
+    }
+
+    public void PickUp()
+    {
+        //Logic to increase inventory value
+
+        _parentPool.pool.Despawn(gameObject);
     }
 }
