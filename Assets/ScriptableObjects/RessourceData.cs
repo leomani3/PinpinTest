@@ -5,4 +5,5 @@ public class RessourceData : ScriptableObject
 {
     public float respawnDelay;
     public float maxHealth;
+    public GameObjectPoolReference chunkVFXPool;
 }

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using MyBox;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -8,7 +9,7 @@ public class Ressource : MonoBehaviour
     [SerializeField] RessourceData ressourceData;
     [SerializeField] List<GameObject> phaseChunks = new List<GameObject>();
 
-    public float[] _phasesLife;
+    private float[] _phasesLife;
     private int _currentPhase;
     private float _currentLife;
     private float _currentPhaseLife;
@@ -40,33 +41,40 @@ public class Ressource : MonoBehaviour
 
     public void ReceiveHit(float damage)
     {
-        print("ReceiveHit : " +damage);
-        float damageLeft = damage;
-        while (damageLeft > 0)
+        if (_currentLife > 0)
         {
-            if (damageLeft >= _currentPhaseLife)
-            {
-                damageLeft -= _currentPhaseLife;
+            print("ReceiveHit : " + damage);
 
-                Drop();
-                if (_currentPhase + 1 < _phasesLife.Length)
+            transform.DOShakeScale(0.15f, 0.15f, 3, 90, true);
+
+            float damageLeft = damage;
+            while (damageLeft > 0)
+            {
+                if (damageLeft >= _currentPhaseLife)
                 {
-                    _currentPhase++;
-                    _currentPhaseLife = _phasesLife[_currentPhase];
+                    damageLeft -= _currentPhaseLife;
+
+                    Drop();
+                    if (_currentPhase + 1 < _phasesLife.Length)
+                    {
+                        _currentPhase++;
+                        _currentPhaseLife = _phasesLife[_currentPhase];
+                    }
+                }
+                else
+                {
+                    _currentPhaseLife -= damageLeft;
+                    damageLeft = 0;
                 }
             }
-            else
-            {
-                _currentPhaseLife -= damageLeft;
-                damageLeft = 0;
-            }
+            _currentLife -= damage;
         }
-
     }
 
     public void Drop()
     {
         print("drop");
         phaseChunks[_currentPhase].SetActive(false);
+        ressourceData.chunkVFXPool.pool.Spawn(phaseChunks[_currentPhase].transform.position, Quaternion.identity, ressourceData.chunkVFXPool.pool.transform);
     }
 }
