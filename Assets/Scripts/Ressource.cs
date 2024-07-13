@@ -76,5 +76,11 @@ public class Ressource : MonoBehaviour
         print("drop");
         phaseChunks[_currentPhase].SetActive(false);
         ressourceData.chunkVFXPool.pool.Spawn(phaseChunks[_currentPhase].transform.position, Quaternion.identity, ressourceData.chunkVFXPool.pool.transform);
+
+        for (int i = 0; i < ressourceData.collectableNumber; i++)
+        {
+            Collectable spawnedCollectable = ressourceData.collectablePool.pool.Spawn(phaseChunks[_currentPhase].transform.position, Quaternion.identity, ressourceData.chunkVFXPool.pool.transform).GetComponent<Collectable>();
+            spawnedCollectable.Spawn(ressourceData.collectableValue);
+        }
     }
 }

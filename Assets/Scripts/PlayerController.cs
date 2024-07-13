@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Pinpin
@@ -10,6 +8,7 @@ namespace Pinpin
         [SerializeField] private Rigidbody m_rigidBody;
         [SerializeField] private float m_speed = 5.0f;
         [SerializeField] private float m_rotationSpeed = 10.0f;
+        [SerializeField] private Vector3Data playerPositionData;
 
         private bool m_hasInput = false;
         private Vector3 m_inputDir = Vector3.zero;
@@ -54,6 +53,7 @@ namespace Pinpin
         private void Update()
         {
             GetInput();
+            playerPositionData.data = transform.position;
         }
 
         private void FixedUpdate()
