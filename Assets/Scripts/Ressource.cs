@@ -14,8 +14,12 @@ public class Ressource : MonoBehaviour
     private float _currentLife;
     private float _currentPhaseLife;
 
+    private bool _alive;
+    private float _timer;
+
     private void Awake()
     {
+        _alive = true;
         _currentPhase = 0;
         _currentLife = ressourceData.maxHealth;
 
@@ -28,9 +32,32 @@ public class Ressource : MonoBehaviour
         _currentPhaseLife = _phasesLife[_currentPhase];
     }
 
+    private void Update()
+    {
+        if (!_alive)
+        {
+            _timer += Time.deltaTime;
+            if (_timer >= ressourceData.respawnDelay)
+            {
+                Spawn();
+            }
+        }
+    }
+
     public void Spawn()
     {
+        _alive = true;
 
+        foreach (GameObject chunk in phaseChunks)
+        {
+            chunk.SetActive(true);
+        }
+
+        _currentPhase = 0;
+        _currentPhaseLife = _phasesLife[_currentPhase];
+        _currentLife = ressourceData.maxHealth;
+
+        transform.DOShakeScale(0.5f, 0.3f, 3, 90, true);
     }
 
     [ButtonMethod]
@@ -66,6 +93,9 @@ public class Ressource : MonoBehaviour
                 }
             }
             _currentLife -= damage;
+
+            if (_currentLife <= 0)
+                DestroyRessource();
         }
     }
 
@@ -79,5 +109,11 @@ public class Ressource : MonoBehaviour
             Collectable spawnedCollectable = ressourceData.collectablePool.pool.Spawn(phaseChunks[_currentPhase].transform.position, Quaternion.identity, ressourceData.collectablePool.pool.transform).GetComponent<Collectable>();
             spawnedCollectable.Spawn(ressourceData.collectableValue, ressourceData.collectablePool);
         }
+    }
+
+    public void DestroyRessource()
+    {
+        _alive = false;
+        _timer = 0;
     }
 }
