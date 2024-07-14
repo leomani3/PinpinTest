@@ -18,6 +18,7 @@ public class Ressource : MonoBehaviour
     private float _timer;
 
     public RessourceType RessourceType => ressourceData.ressourceType;
+    public bool Alive => _alive;
 
     private void Awake()
     {

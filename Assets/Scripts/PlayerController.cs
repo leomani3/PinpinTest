@@ -62,17 +62,27 @@ namespace Pinpin
             m_inputDir = forward * input.y + right * input.x;
         }
 
-        private void HarvestNearbyRessources()
+        private void DetectNearbyRessource()
         {
-            _detectedRessourceColliders =  Physics.OverlapSphere(transform.position, ressourceDetectionRadius, ressourceLayer);
+            _detectedRessourceColliders = Physics.OverlapSphere(transform.position, ressourceDetectionRadius, ressourceLayer);
 
-            if (_detectedRessourceColliders.Length > 0)
+            _detectedRessources.Clear();
+            foreach (Collider collider in _detectedRessourceColliders)
+            {
+                Ressource detectedRessource = collider.GetComponent<Ressource>();
+                if (detectedRessource != null && detectedRessource.Alive)
+                {
+                    _detectedRessources.Add(detectedRessource);
+                }
+            }
+
+            if (_detectedRessources.Count > 0)
             {
                 _animator.SetBool("Harvesting", true);
                 _animator.SetLayerWeight(1, 1);
 
                 HideTools();
-                switch (_detectedRessourceColliders[0].GetComponent<Ressource>().RessourceType)
+                switch (_detectedRessources[0].RessourceType)
                 {
                     case RessourceType.Wood:
                         _animator.SetInteger("HarvestingAnimationID", 0);
@@ -94,6 +104,14 @@ namespace Pinpin
             }
         }
 
+        public void HarvestNearbyRessources()
+        {
+            foreach (Ressource ressource in _detectedRessources)
+            {
+                ressource.ReceiveHit(1);
+            }
+        }
+
         private void HideTools()
         {
             axe.SetActive(false);  //Todo : remplacer par un tween
@@ -105,7 +123,7 @@ namespace Pinpin
             GetInput();
             playerPositionData.data = transform.position;
 
-            HarvestNearbyRessources();
+            DetectNearbyRessource();
         }
 
         private void FixedUpdate()
