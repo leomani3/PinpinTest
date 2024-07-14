@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a641cbcda1125e4f9ffe1a7082d928b, type: 3}
   m_Name: Tree
   m_EditorClassIdentifier: 
+  ressourceType: 0
   respawnDelay: 5
   maxHealth: 6
+  phaseType: 0
   chunkVFXPool: {fileID: 11400000, guid: f46dcd45bb8049044aa8ef0c9eb6fc3b, type: 2}
   collectablePool: {fileID: 11400000, guid: 962a58bb18f33d149a717d7c64dab142, type: 2}
   collectableNumber: 3

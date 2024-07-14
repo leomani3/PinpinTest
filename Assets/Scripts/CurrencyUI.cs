@@ -20,9 +20,9 @@ public class CurrencyUI : MonoBehaviour
         currencyData.onCurrencyValueChange += OnCurrencyValueChange;
     }
 
-    public void OnCurrencyValueChange()
+    public void OnCurrencyValueChange(int val)
     {
-        SetText(PlayerPrefs.GetInt(currencyData.currencyName, 0).ToString());
+        SetText(val.ToString());
     }
 
     public void SetText(string text)

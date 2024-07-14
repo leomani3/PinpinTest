@@ -1126,7 +1126,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 849780845}
-  m_LocalRotation: {x: 0.38268343, y: 0.000000022481213, z: -0.000000009312022, w: 0.92387956}
+  m_LocalRotation: {x: 0.38268343, y: -0.000000022481224, z: 0.000000009312028, w: 0.92387956}
   m_LocalPosition: {x: 2.0057638, y: 10.49686, z: -12.204496}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1547,7 +1547,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.38268343, y: 0.000000022481213, z: -0.000000009312022, w: 0.92387956}
+  m_LocalRotation: {x: 0.38268343, y: -0.000000022481224, z: 0.000000009312028, w: 0.92387956}
   m_LocalPosition: {x: 2.0057638, y: 10.49686, z: -12.204496}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2909,9 +2909,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf4607e750a791d4ca26122b5653b2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currencyDatas:
-  - {fileID: 11400000, guid: 7b31817da45f3ff4a984c7bcf245fda5, type: 2}
-  - {fileID: 11400000, guid: 03e72bd2bc82b934e96617cfb6353baa, type: 2}
+  woodCurrency: {fileID: 11400000, guid: 7b31817da45f3ff4a984c7bcf245fda5, type: 2}
+  stoneCurrency: {fileID: 11400000, guid: 03e72bd2bc82b934e96617cfb6353baa, type: 2}
 --- !u!4 &1689855460
 Transform:
   m_ObjectHideFlags: 0

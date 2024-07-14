@@ -1,23 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Pinpin
 {
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] private List<CurrencyData> currencyDatas;
+        [SerializeField] private CurrencyData woodCurrency;
+        [SerializeField] private CurrencyData stoneCurrency;
 
         private void Start()
         {
-            foreach (CurrencyData currencyData in currencyDatas)
-            {
-                if (currencyData != null)
-                {
-                    currencyData.Init();
-                }
-            }
+            woodCurrency.Init();
+            stoneCurrency.Init();
         }
+
         public static void CheckWood(int amount)
         {
             Debug.Log("You got " + amount + " wood so far.");
