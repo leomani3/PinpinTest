@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09d29d43b5807244cbb943ca1f403b3d, type: 3}
-  m_Name: Wood
+  m_Name: Currency_Wood
   m_EditorClassIdentifier: 
   currencyName: Wood
-  currencySprite: {fileID: 0}
+  currencySprite: {fileID: 21300000, guid: b77a7abad34f98847988faa0e7369830, type: 3}
+  currencySpriteOutline: {fileID: 21300000, guid: fe4211645fd32e1458e4f4772b5e6e77, type: 3}
   currencyAmount: 15
