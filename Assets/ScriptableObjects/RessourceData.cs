@@ -8,6 +8,7 @@ public class RessourceData : ScriptableObject
     public RessourceType ressourceType;
     public float respawnDelay;
     public float maxHealth;
+    public RessourcePhaseType phaseType;
 
     [Separator("Harvesting")]
     public GameObjectPoolReference chunkVFXPool;

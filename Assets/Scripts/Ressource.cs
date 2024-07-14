@@ -7,12 +7,13 @@ using UnityEngine;
 public class Ressource : MonoBehaviour
 {
     [SerializeField] RessourceData ressourceData;
-    [SerializeField] List<GameObject> phaseChunks = new List<GameObject>();
+    [SerializeField] List<GameObject> phases = new List<GameObject>();
 
     private float[] _phasesLife;
     private int _currentPhase;
     private float _currentLife;
     private float _currentPhaseLife;
+    private Collider _collider;
 
     private bool _alive;
     private float _timer;
@@ -22,11 +23,13 @@ public class Ressource : MonoBehaviour
 
     private void Awake()
     {
+        _collider = GetComponent<Collider>();
+
         _alive = true;
         _currentPhase = 0;
         _currentLife = ressourceData.maxHealth;
 
-        _phasesLife = new float[phaseChunks.Count];
+        _phasesLife = new float[phases.Count];
         for (int i = 0; i < _phasesLife.Length; i++)
         {
             _phasesLife[i] = ressourceData.maxHealth / _phasesLife.Length;
@@ -49,9 +52,10 @@ public class Ressource : MonoBehaviour
 
     public void Spawn()
     {
+        _collider.enabled = true;
         _alive = true;
 
-        foreach (GameObject chunk in phaseChunks)
+        foreach (GameObject chunk in phases)
         {
             chunk.SetActive(true);
         }
@@ -98,18 +102,41 @@ public class Ressource : MonoBehaviour
 
     public void Drop()
     {
-        phaseChunks[_currentPhase].SetActive(false);
-        ressourceData.chunkVFXPool.pool.Spawn(phaseChunks[_currentPhase].transform.position, Quaternion.identity, ressourceData.chunkVFXPool.pool.transform);
+        SetPhase(_currentPhase);
+
+        ressourceData.chunkVFXPool.pool.Spawn(phases[_currentPhase].transform.position, Quaternion.identity, ressourceData.chunkVFXPool.pool.transform);
 
         for (int i = 0; i < ressourceData.collectableNumber; i++)
         {
-            Collectable spawnedCollectable = ressourceData.collectablePool.pool.Spawn(phaseChunks[_currentPhase].transform.position, Quaternion.identity, ressourceData.collectablePool.pool.transform).GetComponent<Collectable>();
+            Collectable spawnedCollectable = ressourceData.collectablePool.pool.Spawn(phases[_currentPhase].transform.position, Quaternion.identity, ressourceData.collectablePool.pool.transform).GetComponent<Collectable>();
             spawnedCollectable.Spawn(ressourceData.collectableValue, ressourceData.collectablePool);
+        }
+    }
+
+    private void SetPhase(int phaseIndex)
+    {
+        switch (ressourceData.phaseType)
+        {
+            case RessourcePhaseType.ChunkSeparation:
+                phases[_currentPhase].SetActive(false);
+                break;
+            case RessourcePhaseType.ModelChange:
+                phases[_currentPhase].SetActive(false);
+
+                if (_currentPhase + 1 < phases.Count)
+                {
+                    phases[_currentPhase+1].SetActive(true);
+                }
+                break;
+            default:
+                break;
         }
     }
 
     public void DestroyRessource()
     {
+        _collider.enabled = false;
+
         _alive = false;
         _timer = 0;
     }

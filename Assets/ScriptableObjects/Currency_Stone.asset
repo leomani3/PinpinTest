@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09d29d43b5807244cbb943ca1f403b3d, type: 3}
+  m_Name: Currency_Stone
+  m_EditorClassIdentifier: 
+  currencyName: Stone
+  currencySprite: {fileID: 21300000, guid: 6a0e07d8c496ff542af4d505ac6946fd, type: 3}
+  currencySpriteOutline: {fileID: 21300000, guid: b9e1d6f8b0a05d841bf81adeb6aed15f, type: 3}
+  currencyAmount: 0
