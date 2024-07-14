@@ -17,6 +17,8 @@ public class Ressource : MonoBehaviour
     private bool _alive;
     private float _timer;
 
+    public RessourceType RessourceType => ressourceData.ressourceType;
+
     private void Awake()
     {
         _alive = true;
@@ -58,12 +60,6 @@ public class Ressource : MonoBehaviour
         _currentLife = ressourceData.maxHealth;
 
         transform.DOShakeScale(0.5f, 0.3f, 3, 90, true);
-    }
-
-    [ButtonMethod]
-    public void test()
-    {
-        ReceiveHit(1);
     }
 
     public void ReceiveHit(float damage)

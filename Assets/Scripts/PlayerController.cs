@@ -1,3 +1,5 @@
+using MyBox;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Pinpin
@@ -9,11 +11,21 @@ namespace Pinpin
         [SerializeField] private float m_speed = 5.0f;
         [SerializeField] private float m_rotationSpeed = 10.0f;
         [SerializeField] private Vector3Data playerPositionData;
+        [SerializeField] private LayerMask ressourceLayer;
+        [SerializeField] private float ressourceDetectionRadius;
+
+        [Separator("Tools")]
+        [SerializeField] private GameObject axe;
+        [SerializeField] private GameObject pickaxe;
 
         private bool m_hasInput = false;
         private Vector3 m_inputDir = Vector3.zero;
         private Camera m_mainCamera;
         private Animator _animator;
+
+        //detect ressources
+        private Collider[] _detectedRessourceColliders;
+        private List<Ressource> _detectedRessources = new List<Ressource>();
 
         private void Reset()
         {
@@ -50,10 +62,50 @@ namespace Pinpin
             m_inputDir = forward * input.y + right * input.x;
         }
 
+        private void HarvestNearbyRessources()
+        {
+            _detectedRessourceColliders =  Physics.OverlapSphere(transform.position, ressourceDetectionRadius, ressourceLayer);
+
+            if (_detectedRessourceColliders.Length > 0)
+            {
+                _animator.SetBool("Harvesting", true);
+                _animator.SetLayerWeight(1, 1);
+
+                HideTools();
+                switch (_detectedRessourceColliders[0].GetComponent<Ressource>().RessourceType)
+                {
+                    case RessourceType.Wood:
+                        _animator.SetInteger("HarvestingAnimationID", 0);
+                        axe.SetActive(true); //Todo : remplacer par un tween
+                        break;
+                    case RessourceType.Stone:
+                        _animator.SetInteger("HarvestingAnimationID", 1);
+                        pickaxe.SetActive(true); //Todo : remplacer par un tween
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                _animator.SetLayerWeight(1, 0);
+                _animator.SetBool("Harvesting", false);
+                HideTools();
+            }
+        }
+
+        private void HideTools()
+        {
+            axe.SetActive(false);  //Todo : remplacer par un tween
+            pickaxe.SetActive(false);  //Todo : remplacer par un tween
+        }
+
         private void Update()
         {
             GetInput();
             playerPositionData.data = transform.position;
+
+            HarvestNearbyRessources();
         }
 
         private void FixedUpdate()
