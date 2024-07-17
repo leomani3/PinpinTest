@@ -18,14 +18,24 @@ namespace Pinpin
         [SerializeField] private GameObject axe;
         [SerializeField] private GameObject pickaxe;
 
+        [Separator("Movement refinement")]
+        [SerializeField] private float distanceFromPlayer;
+        [SerializeField] private LayerMask groundLayer;
+        [SerializeField] private float maxSlopeAngle;
+
         private bool m_hasInput = false;
         private Vector3 m_inputDir = Vector3.zero;
         private Camera m_mainCamera;
         private Animator _animator;
+        private bool _invalidSlopeDetected;
+        private bool _voidDetected;
 
         //detect ressources
         private Collider[] _detectedRessourceColliders;
         private List<Ressource> _detectedRessources = new List<Ressource>();
+
+        //Raycasting
+        private RaycastHit _movementRaycastHit;
 
         private void Reset()
         {
@@ -37,6 +47,35 @@ namespace Pinpin
         {
             m_mainCamera = Camera.main;
             _animator = GetComponentInChildren<Animator>();
+        }
+
+        private void MovementRaycast()
+        {
+            if (m_hasInput)
+            {
+                Ray ray = new Ray(transform.position + (m_inputDir * distanceFromPlayer) + new Vector3(0, 4, 0), Vector3.down);
+                if (Physics.Raycast(ray, out _movementRaycastHit, 10, groundLayer))
+                {
+                    _voidDetected = false;
+                    if (Vector3.Angle(_movementRaycastHit.normal, Vector3.up) <= maxSlopeAngle)
+                    {
+                        _invalidSlopeDetected = false;
+                    }
+                    else
+                    {
+                        _invalidSlopeDetected = true;
+                    }
+                }
+                else
+                {
+                    _voidDetected = true;
+                }
+            }
+            else
+            {
+                _voidDetected = false;
+                _invalidSlopeDetected = false;
+            }
         }
 
 
@@ -60,6 +99,11 @@ namespace Pinpin
             right.Normalize();
 
             m_inputDir = forward * input.y + right * input.x;
+        }
+
+        private void OnDrawGizmos()
+        {
+            //Gizmos.DrawRay(new Ray(transform.position + (m_inputDir * distanceFromPlayer) + new Vector3(0, 4, 0), Vector3.down));
         }
 
         private void DetectNearbyRessource()
@@ -121,6 +165,7 @@ namespace Pinpin
         private void Update()
         {
             GetInput();
+            MovementRaycast();
             playerPositionData.data = transform.position;
 
             DetectNearbyRessource();
@@ -128,10 +173,11 @@ namespace Pinpin
 
         private void FixedUpdate()
         {
-            if (m_hasInput)
+            if (!_invalidSlopeDetected && !_voidDetected && m_hasInput)
             {
                 Vector3 vel = m_inputDir * m_speed;
-                vel.y = m_rigidBody.velocity.y;
+                //vel.y = m_rigidBody.velocity.y;
+                vel.y = 0;
                 m_rigidBody.velocity = vel;
 
                 // Rotate character towards movement direction
