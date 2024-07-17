@@ -60,7 +60,7 @@ public class BuyZone : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         PlayerController player = other.GetComponentInParent<PlayerController>();
-        if (player != null)
+        if (player != null && !_bought)
         {
             _squareScaleTween.Kill();
             _squareScaleTween = squareSprite.transform.DOScale(_initalSquareSpriteScale, 0.15f);
@@ -99,6 +99,9 @@ public class BuyZone : MonoBehaviour
             buyable.Buy();
 
         canvas.enabled = false;
+
+        _squareScaleTween.Kill();
+        _squareScaleTween = squareSprite.transform.DOScale(0, 1f);
     }
 
     private void UpdateText()
