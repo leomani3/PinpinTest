@@ -14,6 +14,10 @@ namespace Pinpin
         [SerializeField] private LayerMask ressourceLayer;
         [SerializeField] private float ressourceDetectionRadius;
 
+        [Separator("Ears animation")]
+        [SerializeField] private DynamicBone leftDynamicBone;
+        [SerializeField] private DynamicBone rightDynamicBone;
+
         [Separator("Tools")]
         [SerializeField] private GameObject axe;
         [SerializeField] private GameObject pickaxe;
@@ -185,11 +189,21 @@ namespace Pinpin
                 {
                     Quaternion targetRotation = Quaternion.LookRotation(m_inputDir);
                     m_rigidBody.rotation = Quaternion.Slerp(m_rigidBody.rotation, targetRotation, Time.fixedDeltaTime * m_rotationSpeed);
+
+                    leftDynamicBone.m_Damping = 0.45f;
+                    rightDynamicBone.m_Damping = 0.45f;
+                    leftDynamicBone.UpdateParameters();
+                    rightDynamicBone.UpdateParameters();
                 }
             }
             else
             {
                 m_rigidBody.velocity = Vector3.zero;
+
+                leftDynamicBone.m_Damping = 0.01f;
+                rightDynamicBone.m_Damping = 0.01f;
+                leftDynamicBone.UpdateParameters();
+                rightDynamicBone.UpdateParameters();
             }
 
             _animator.SetFloat("Velocity", m_rigidBody.velocity.magnitude);
