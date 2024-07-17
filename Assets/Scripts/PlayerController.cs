@@ -112,7 +112,7 @@ namespace Pinpin
 
         private void DetectNearbyRessource()
         {
-            _detectedRessourceColliders = Physics.OverlapSphere(transform.position, ressourceDetectionRadius, ressourceLayer);
+            _detectedRessourceColliders = Physics.OverlapSphere(transform.position + (transform.forward * 0.5f), ressourceDetectionRadius, ressourceLayer);
 
             _detectedRessources.Clear();
             foreach (Collider collider in _detectedRessourceColliders)
