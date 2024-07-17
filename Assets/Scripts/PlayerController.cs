@@ -27,12 +27,19 @@ namespace Pinpin
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private float maxSlopeAngle;
 
+        [Separator("Pet")]
+        [SerializeField] private Transform playerPetTarget;
+        [SerializeField] private Vector3Data playerPetPosition;
+        [SerializeField] private int nbFrameDelay;
+
         private bool m_hasInput = false;
         private Vector3 m_inputDir = Vector3.zero;
         private Camera m_mainCamera;
         private Animator _animator;
         private bool _invalidSlopeDetected;
         private bool _voidDetected;
+
+        private List<Vector3> _positionsByFrame = new List<Vector3>();
 
         //detect ressources
         private Collider[] _detectedRessourceColliders;
@@ -105,6 +112,17 @@ namespace Pinpin
             m_inputDir = forward * input.y + right * input.x;
         }
 
+        private void RecordPosition()
+        {
+            if (_positionsByFrame.Count >= nbFrameDelay)
+            {
+                _positionsByFrame.RemoveAt(0);
+            }
+
+            _positionsByFrame.Add(playerPetTarget.position);
+            playerPetPosition.data = _positionsByFrame[0];
+        }
+
         private void OnDrawGizmos()
         {
             //Gizmos.DrawRay(new Ray(transform.position + (m_inputDir * distanceFromPlayer) + new Vector3(0, 4, 0), Vector3.down));
@@ -173,6 +191,7 @@ namespace Pinpin
             playerPositionData.data = transform.position;
 
             DetectNearbyRessource();
+            RecordPosition();
         }
 
         private void FixedUpdate()
