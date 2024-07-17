@@ -12,6 +12,8 @@ public class CurrencyData : ScriptableObject
     public Sprite currencySpriteOutline;
     public int currencyAmount;
 
+    public int CurrencyAmount => currencyAmount;
+
     public virtual void Init()
     {
         SetCurrency(PlayerPrefs.GetInt(currencyName, 0));
