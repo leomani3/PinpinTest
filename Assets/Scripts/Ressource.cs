@@ -14,6 +14,7 @@ public class Ressource : MonoBehaviour
     private float _currentLife;
     private float _currentPhaseLife;
     private Collider _collider;
+    private Vector3 _initialScale;
 
     private bool _alive;
     private float _timer;
@@ -23,6 +24,7 @@ public class Ressource : MonoBehaviour
 
     private void Awake()
     {
+        _initialScale = transform.localScale;
         _collider = GetComponent<Collider>();
 
         _alive = true;
@@ -65,7 +67,7 @@ public class Ressource : MonoBehaviour
         _currentLife = ressourceData.maxHealth;
 
         transform.localScale = Vector3.zero;
-        transform.DOScale(1, 0.5f).SetEase(Ease.OutElastic, 0.5f);
+        transform.DOScale(_initialScale, 0.5f).SetEase(Ease.OutElastic, 0.5f);
         //transform.DOShakeScale(0.5f, 0.5f, 3, 90, true);
     }
 
