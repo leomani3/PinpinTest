@@ -30,8 +30,8 @@ public class BuyZone : MonoBehaviour
     private void Awake()
     {
         _mainCam = Camera.main;
-        _bought = false;
         _initalSquareSpriteScale = squareSprite.transform.localScale;
+
         UpdateText();
     }
 
@@ -96,12 +96,19 @@ public class BuyZone : MonoBehaviour
         _bought = true;
 
         if (buyable != null)
-            buyable.Buy();
+            buyable.Buy(false);
 
         canvas.enabled = false;
 
         _squareScaleTween.Kill();
         _squareScaleTween = squareSprite.transform.DOScale(0, 1f);
+    }
+
+    public void SetActive(bool b)
+    {
+        _bought = !b;
+        canvas.enabled = b;
+        squareSprite.enabled = b;
     }
 
     private void UpdateText()

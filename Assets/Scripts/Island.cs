@@ -3,17 +3,23 @@ using UnityEngine;
 
 public class Island : Buyable
 {
-    private bool _bought;
-
-    private void Awake()
+    protected override void Init()
     {
-        _bought = false;
+        base.Init();
+
         transform.localScale = Vector3.zero;
     }
-
-    public override void Buy()
+    public override void Buy(bool instant)
     {
-        _bought = true;
-        transform.DOScale(1, 0.5f).SetEase(Ease.OutElastic, 0.5f);
+       base.Buy(instant);
+
+        if (instant)
+        {
+            transform.localScale = Vector3.one;
+        }
+        else
+        {
+            transform.DOScale(1, 0.5f).SetEase(Ease.OutElastic, 0.5f);
+        }
     }
 }
