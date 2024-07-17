@@ -14,6 +14,6 @@ public class Island : Buyable
     public override void Buy()
     {
         _bought = true;
-        transform.DOScale(1, 0.25f).SetEase(Ease.OutElastic);
+        transform.DOScale(1, 0.5f).SetEase(Ease.OutElastic, 0.5f);
     }
 }

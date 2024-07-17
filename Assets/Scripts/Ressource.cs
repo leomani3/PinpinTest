@@ -64,14 +64,16 @@ public class Ressource : MonoBehaviour
         _currentPhaseLife = _phasesLife[_currentPhase];
         _currentLife = ressourceData.maxHealth;
 
-        transform.DOShakeScale(0.5f, 0.3f, 3, 90, true);
+        transform.localScale = Vector3.zero;
+        transform.DOScale(1, 0.5f).SetEase(Ease.OutElastic, 0.5f);
+        //transform.DOShakeScale(0.5f, 0.5f, 3, 90, true);
     }
 
     public void ReceiveHit(float damage)
     {
         if (_currentLife > 0)
         {
-            transform.DOShakeScale(0.15f, 0.15f, 3, 90, true);
+            transform.DOShakeScale(0.2f, 0.25f, 3, 90, true);
 
             ressourceData.currencyData.IncreaseCurrency(ressourceData.currencyDropPerHit);
 

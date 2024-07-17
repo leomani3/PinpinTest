@@ -39,11 +39,15 @@ public class FloatingText : MonoBehaviour
         _opacityTween.Kill();
         _text.text = txt;
 
+        //before
+        _text.transform.localPosition = Vector3.zero;
         _text.color = _text.color.WithAlphaSetTo(0);
 
+        //fade in
         _moveTween = _text.transform.DOLocalMove(_worldPos + fadeInOffset, fadeInDuration);
         _opacityTween = _text.DOFade(1, fadeInDuration);
 
+        //fade out
         _opacityTween = _text.DOFade(0, fadeOutDuration).SetDelay(delayBeforeFadeOut).OnComplete(Despawn);
     }
 
