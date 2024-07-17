@@ -9,10 +9,15 @@ public class RessourceData : ScriptableObject
     public float respawnDelay;
     public float maxHealth;
     public RessourcePhaseType phaseType;
+    public CurrencyData currencyData;
 
     [Separator("Harvesting")]
     public GameObjectPoolReference chunkVFXPool;
     public GameObjectPoolReference collectablePool;
-    public int collectableNumber;
-    public int collectableValue;
+    public int currencyDropPerHit;
+    public int chunkNumber;
+
+    [Separator("Floating text")]
+    public GameObjectPoolReference floatingTextPoolRef;
+    public Vector3 floatingTextSpawnOffset;
 }

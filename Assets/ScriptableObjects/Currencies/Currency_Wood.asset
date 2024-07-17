@@ -15,4 +15,6 @@ MonoBehaviour:
   currencyName: Wood
   currencySprite: {fileID: 21300000, guid: b77a7abad34f98847988faa0e7369830, type: 3}
   currencySpriteOutline: {fileID: 21300000, guid: fe4211645fd32e1458e4f4772b5e6e77, type: 3}
-  currencyAmount: 21
+  currencyAmount: 124
+  floatingTextPoolRef: {fileID: 11400000, guid: 796f811f009a8db4d91437622686024d, type: 2}
+  playerPos: {fileID: 11400000, guid: c487de0d87ce26d4aaa64b4a314a346e, type: 2}

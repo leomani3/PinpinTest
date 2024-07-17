@@ -73,6 +73,11 @@ public class Ressource : MonoBehaviour
         {
             transform.DOShakeScale(0.15f, 0.15f, 3, 90, true);
 
+            ressourceData.currencyData.IncreaseCurrency(ressourceData.currencyDropPerHit);
+
+            FloatingText text = ressourceData.floatingTextPoolRef.pool.Spawn(ressourceData.floatingTextPoolRef.pool.transform).GetComponent<FloatingText>();
+            text.Spawn(transform.position.Offset(ressourceData.floatingTextSpawnOffset), "+" + ressourceData.currencyDropPerHit.ToString() + " <sprite=\"" + ressourceData.currencyData.currencyName + "\" name=\"" + ressourceData.currencyData.currencyName + "\">");
+
             float damageLeft = damage;
             while (damageLeft > 0)
             {
@@ -80,7 +85,7 @@ public class Ressource : MonoBehaviour
                 {
                     damageLeft -= _currentPhaseLife;
 
-                    Drop();
+                    SpawnChunks();
                     if (_currentPhase + 1 < _phasesLife.Length)
                     {
                         _currentPhase++;
@@ -100,16 +105,16 @@ public class Ressource : MonoBehaviour
         }
     }
 
-    public void Drop()
+    public void SpawnChunks()
     {
         SetPhase(_currentPhase);
 
         ressourceData.chunkVFXPool.pool.Spawn(phases[_currentPhase].transform.position, Quaternion.identity, ressourceData.chunkVFXPool.pool.transform);
 
-        for (int i = 0; i < ressourceData.collectableNumber; i++)
+        for (int i = 0; i < ressourceData.chunkNumber; i++)
         {
-            Collectable spawnedCollectable = ressourceData.collectablePool.pool.Spawn(phases[_currentPhase].transform.position, Quaternion.identity, ressourceData.collectablePool.pool.transform).GetComponent<Collectable>();
-            spawnedCollectable.Spawn(ressourceData.collectableValue, ressourceData.collectablePool);
+            RessourceChunk spawnedCollectable = ressourceData.collectablePool.pool.Spawn(phases[_currentPhase].transform.position, Quaternion.identity, ressourceData.collectablePool.pool.transform).GetComponent<RessourceChunk>();
+            spawnedCollectable.Spawn(ressourceData.collectablePool);
         }
     }
 

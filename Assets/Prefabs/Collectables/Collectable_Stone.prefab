@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9067795720545364006}
-  - component: {fileID: 3946707327321414342}
+  - component: {fileID: 3204218114819790270}
   - component: {fileID: 7535509538536251111}
   - component: {fileID: 2593611982804384417}
   - component: {fileID: 5243772741048641803}
@@ -35,7 +35,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3946707327321414342
+--- !u!114 &3204218114819790270
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,12 +44,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 210776549513628182}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6bd1c89ff07c714bb7b36766a5cf753, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a491904db031e44d934b57ad6f20646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerPositionData: {fileID: 11400000, guid: c487de0d87ce26d4aaa64b4a314a346e, type: 2}
-  moveSpeed: 4
-  currencyData: {fileID: 11400000, guid: 03e72bd2bc82b934e96617cfb6353baa, type: 2}
+  moveSpeed: 5
 --- !u!23 &7535509538536251111
 MeshRenderer:
   m_ObjectHideFlags: 0

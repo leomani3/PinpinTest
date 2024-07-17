@@ -3,7 +3,7 @@ using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
-public class Collectable : MonoBehaviour
+public class RessourceChunk : MonoBehaviour
 {
     [SerializeField] private Vector3Data playerPositionData;
     [SerializeField] private float moveSpeed;
@@ -11,9 +11,8 @@ public class Collectable : MonoBehaviour
     protected int value;
     protected GameObjectPoolReference _parentPool;
 
-    public void Spawn(int val, GameObjectPoolReference parentPool)
+    public void Spawn(GameObjectPoolReference parentPool)
     {
-        value = val;
         _parentPool = parentPool;
 
 

@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: abb5dda9e67a84247af63246fb43ed49, type: 3}
-  m_Name: woodChunkVFXPool
+  m_Name: stoneCollectablePoolRef
   m_EditorClassIdentifier: 
   pool: {fileID: 0}
