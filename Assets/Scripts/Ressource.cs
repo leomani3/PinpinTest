@@ -75,8 +75,7 @@ public class Ressource : MonoBehaviour
 
             ressourceData.currencyData.IncreaseCurrency(ressourceData.currencyDropPerHit);
 
-            FloatingText text = ressourceData.floatingTextPoolRef.pool.Spawn(ressourceData.floatingTextPoolRef.pool.transform).GetComponent<FloatingText>();
-            text.Spawn(transform.position.Offset(ressourceData.floatingTextSpawnOffset), "+" + ressourceData.currencyDropPerHit.ToString() + " <sprite=\"" + ressourceData.currencyData.currencyName + "\" name=\"" + ressourceData.currencyData.currencyName + "\">");
+            FloatingTextManager.Instance.Spawn(transform.position + ressourceData.floatingTextSpawnOffset, "+" + ressourceData.currencyDropPerHit.ToString() + " <sprite=\"" + ressourceData.currencyData.currencyName + "\" name=\"" + ressourceData.currencyData.currencyName + "\">");
 
             float damageLeft = damage;
             while (damageLeft > 0)

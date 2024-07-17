@@ -19,6 +19,8 @@ public class FloatingText : MonoBehaviour
     private Camera _mainCam;
     private TextMeshProUGUI _text;
     private Vector3 _worldPos;
+    private bool _active;
+    private LeanGameObjectPool _parentPool;
 
     private void Awake()
     {
@@ -26,9 +28,12 @@ public class FloatingText : MonoBehaviour
         _text = GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    public void Spawn(Vector3 worldPos, string txt)
+    public void Spawn(Vector3 worldPos, string txt, LeanGameObjectPool parentPool)
     {
+        _active = true;
+
         _worldPos = worldPos;
+        _parentPool = parentPool;
 
         _moveTween.Kill();
         _opacityTween.Kill();
@@ -39,12 +44,18 @@ public class FloatingText : MonoBehaviour
         _moveTween = _text.transform.DOLocalMove(_worldPos + fadeInOffset, fadeInDuration);
         _opacityTween = _text.DOFade(1, fadeInDuration);
 
-        _opacityTween = _text.DOFade(0, fadeOutDuration).SetDelay(delayBeforeFadeOut);
+        _opacityTween = _text.DOFade(0, fadeOutDuration).SetDelay(delayBeforeFadeOut).OnComplete(Despawn);
+    }
+
+    private void Despawn()
+    {
+        _active = false;
+        _parentPool.Despawn(gameObject);
     }
 
     private void Update()
     {
-        if (_worldPos != null)
+        if (_active && _worldPos != null)
         {
             transform.position = _mainCam.WorldToScreenPoint(_worldPos);
         }

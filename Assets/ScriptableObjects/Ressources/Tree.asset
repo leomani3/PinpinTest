@@ -17,8 +17,9 @@ MonoBehaviour:
   maxHealth: 6
   phaseType: 0
   currencyData: {fileID: 11400000, guid: 7b31817da45f3ff4a984c7bcf245fda5, type: 2}
-  floatingTextPoolRef: {fileID: 11400000, guid: 796f811f009a8db4d91437622686024d, type: 2}
   chunkVFXPool: {fileID: 11400000, guid: f46dcd45bb8049044aa8ef0c9eb6fc3b, type: 2}
   collectablePool: {fileID: 11400000, guid: 962a58bb18f33d149a717d7c64dab142, type: 2}
   currencyDropPerHit: 2
   chunkNumber: 3
+  floatingTextPoolRef: {fileID: 11400000, guid: 796f811f009a8db4d91437622686024d, type: 2}
+  floatingTextSpawnOffset: {x: 0, y: 3, z: 0}
