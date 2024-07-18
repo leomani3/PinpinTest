@@ -11,6 +11,6 @@ public class PetAE : MonoBehaviour
 
     public void LaunchProjectile()
     {
-
+        _pet.Attack();
     }
 }

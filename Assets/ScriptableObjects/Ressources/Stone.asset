@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Stone
   m_EditorClassIdentifier: 
   ressourceType: 1
-  respawnDelay: 5
+  respawnDelay: 6
   maxHealth: 6
   phaseType: 1
   currencyData: {fileID: 11400000, guid: 03e72bd2bc82b934e96617cfb6353baa, type: 2}
   chunkVFXPool: {fileID: 11400000, guid: ee99621c346a7c143a943fc89d9a1a95, type: 2}
   collectablePool: {fileID: 11400000, guid: 059c643931002fb469605fa18f7b01f6, type: 2}
-  currencyDropPerHit: 2
+  currencyDropPer1Damage: 1
   chunkNumber: 3
   floatingTextPoolRef: {fileID: 11400000, guid: 796f811f009a8db4d91437622686024d, type: 2}
   floatingTextSpawnOffset: {x: 0, y: 1, z: 0}

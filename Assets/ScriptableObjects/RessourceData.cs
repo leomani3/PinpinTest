@@ -14,7 +14,7 @@ public class RessourceData : ScriptableObject
     [Separator("Harvesting")]
     public GameObjectPoolReference chunkVFXPool;
     public GameObjectPoolReference collectablePool;
-    public int currencyDropPerHit;
+    public int currencyDropPer1Damage;
     public int chunkNumber;
 
     [Separator("Floating text")]

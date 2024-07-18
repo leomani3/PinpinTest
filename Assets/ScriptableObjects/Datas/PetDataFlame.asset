@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a18658d61b8870a40a59b90f90ec94fe, type: 3}
   m_Name: PetDataFlame
   m_EditorClassIdentifier: 
-  ressourceDetectionRadius: 3
-  moveSpeed: 5
+  ressourceDetectionRadius: 4
+  moveSpeed: 4
   playerPetPosition: {fileID: 11400000, guid: 3e6e62c4f0154994d8b43068ea4abe8d, type: 2}
+  ressourceLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  projectilePoolRef: {fileID: 11400000, guid: 04b13f18cf7158b40a31077e4ecb814e, type: 2}
+  delayBetweenAttacks: 5

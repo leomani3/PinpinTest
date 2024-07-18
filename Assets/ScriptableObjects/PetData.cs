@@ -3,7 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PetData", menuName = "ScriptableObjects/PetData")]
 public class PetData : ScriptableObject
 {
-    [SerializeField] public float ressourceDetectionRadius;
-    [SerializeField] public float moveSpeed;
-    [SerializeField] public Vector3Data playerPetPosition;
+    public float ressourceDetectionRadius;
+    public float moveSpeed;
+    public Vector3Data playerPetPosition;
+    public LayerMask ressourceLayer;
+    public GameObjectPoolReference projectilePoolRef;
+    public float delayBetweenAttacks;
 }

@@ -1,7 +1,5 @@
 using DG.Tweening;
-using MyBox;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Ressource : MonoBehaviour
@@ -68,18 +66,18 @@ public class Ressource : MonoBehaviour
 
         transform.localScale = Vector3.zero;
         transform.DOScale(_initialScale, 0.5f).SetEase(Ease.OutElastic, 0.5f);
-        //transform.DOShakeScale(0.5f, 0.5f, 3, 90, true);
     }
 
     public void ReceiveHit(float damage)
     {
+        damage = Mathf.Clamp(damage, 0, _currentLife);
         if (_currentLife > 0)
         {
             transform.DOShakeScale(0.2f, 0.25f, 3, 90, true);
 
-            ressourceData.currencyData.IncreaseCurrency(ressourceData.currencyDropPerHit);
-
-            FloatingTextManager.Instance.Spawn(transform.position + ressourceData.floatingTextSpawnOffset, "+" + ressourceData.currencyDropPerHit.ToString() + " <sprite=\"" + ressourceData.currencyData.currencyName + "\" name=\"" + ressourceData.currencyData.currencyName + "\">");
+            int gainedCurrency = ressourceData.currencyDropPer1Damage * Mathf.RoundToInt(damage);
+            ressourceData.currencyData.IncreaseCurrency(gainedCurrency);
+            FloatingTextManager.Instance.Spawn(transform.position + ressourceData.floatingTextSpawnOffset, "+" + gainedCurrency.ToString() + " <sprite=\"" + ressourceData.currencyData.currencyName + "\" name=\"" + ressourceData.currencyData.currencyName + "\">");
 
             float damageLeft = damage;
             while (damageLeft > 0)
