@@ -7,8 +7,8 @@ namespace Pinpin
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerController : MonoBehaviour
     {
+        [SerializeField] private PlayerStatCollection playerStatCollection;
         [SerializeField] private Rigidbody m_rigidBody;
-        [SerializeField] private float m_speed = 5.0f;
         [SerializeField] private float m_rotationSpeed = 10.0f;
         [SerializeField] private Vector3Data playerPositionData;
         [SerializeField] private LayerMask ressourceLayer;
@@ -48,6 +48,8 @@ namespace Pinpin
         //Raycasting
         private RaycastHit _movementRaycastHit;
 
+        public PlayerStatCollection PlayerStatCollection => playerStatCollection;
+
         private void Reset()
         {
             print("reset");
@@ -58,6 +60,7 @@ namespace Pinpin
         {
             m_mainCamera = Camera.main;
             _animator = GetComponentInChildren<Animator>();
+            playerStatCollection.Init();
         }
 
         private void MovementRaycast()
@@ -198,7 +201,7 @@ namespace Pinpin
         {
             if (!_invalidSlopeDetected && !_voidDetected && m_hasInput)
             {
-                Vector3 vel = m_inputDir * m_speed;
+                Vector3 vel = m_inputDir * playerStatCollection.GetStat(PlayerStatType.MoveSpeed);
                 //vel.y = m_rigidBody.velocity.y;
                 vel.y = 0;
                 m_rigidBody.velocity = vel;

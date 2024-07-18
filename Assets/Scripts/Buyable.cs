@@ -52,7 +52,6 @@ public class Buyable : MonoBehaviour
     protected virtual void Load()
     {
         _bought = bool.Parse(PlayerPrefs.GetString(ID.ToString(), "false"));
-        print(gameObject.name + " bought : " + _bought);
     }
 
     private void OnApplicationQuit()
