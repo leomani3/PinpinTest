@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Buyable : MonoBehaviour
 {
-    [SerializeField] private int ID;
+    [SerializeField] protected string ID;
 
-    [SerializeField] private List<BuyZone> connectedBuyZones;
+    [SerializeField] protected List<BuyZone> connectedBuyZones;
 
     protected bool _bought;
 
     protected virtual void Awake()
     {
-        _bought = bool.Parse(PlayerPrefs.GetString(ID.ToString(), "false"));
+        Load();
 
         if (_bought)
         {
@@ -41,6 +41,27 @@ public class Buyable : MonoBehaviour
     {
         _bought = true;
 
+        Save();
+    }
+
+    protected virtual void Save()
+    {
         PlayerPrefs.SetString(ID.ToString(), _bought.ToString());
+    }
+
+    protected virtual void Load()
+    {
+        _bought = bool.Parse(PlayerPrefs.GetString(ID.ToString(), "false"));
+        print(gameObject.name + " bought : " + _bought);
+    }
+
+    private void OnApplicationQuit()
+    {
+        Save();
+    }
+
+    private void OnApplicationPause(bool pause)
+    {
+        Save();
     }
 }

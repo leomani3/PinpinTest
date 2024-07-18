@@ -5,18 +5,18 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-[ExecuteAlways]
 public class BuyZone : MonoBehaviour
 {
     [SerializeField] private CurrencyData currency;
     [SerializeField] private int neededAmount;
     [SerializeField] private GameObjectPoolReference chunkPoolReference;
-    [SerializeField] private Buyable buyable;
+    [SerializeField] protected Buyable buyable;
 
     [Separator("References")]
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private Transform textTarget;
     [SerializeField] private Canvas canvas;
+    [SerializeField] private Transform canvasContent;
     [SerializeField] private SpriteRenderer squareSprite;
     [SerializeField] private Vector3Data playerPos;
 
@@ -39,7 +39,7 @@ public class BuyZone : MonoBehaviour
     {
         if (!_bought && _mainCam != null)
         {
-            text.transform.position = _mainCam.WorldToScreenPoint(textTarget.position);
+            canvasContent.transform.position = _mainCam.WorldToScreenPoint(textTarget.position);
         }
     }
 
@@ -104,15 +104,35 @@ public class BuyZone : MonoBehaviour
         _squareScaleTween = squareSprite.transform.DOScale(0, 1f);
     }
 
+    public virtual void Reset()
+    {
+        _bought = false;
+        canvas.enabled = true;
+        squareSprite.enabled = true;
+        _squareScaleTween.Kill();
+        _squareScaleTween = squareSprite.transform.DOScale(_initalSquareSpriteScale, 1f);
+        _currentAmount = 0;
+
+        UpdateText();
+    }
+
     public void SetActive(bool b)
     {
         _bought = !b;
         canvas.enabled = b;
         squareSprite.enabled = b;
+
+        UpdateText();
     }
 
-    private void UpdateText()
+    protected virtual void UpdateText()
     {
         text.text = _currentAmount + "/" + neededAmount + " <sprite=\"" + currency.currencyName + "\" name=\"" + currency.currencyName + "\">";
+    }
+
+    [ButtonMethod]
+    public void SnapToTextTarget()
+    {
+        canvasContent.transform.position = Camera.main.WorldToScreenPoint(textTarget.position);
     }
 }

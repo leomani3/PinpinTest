@@ -9,4 +9,5 @@ public class PetData : ScriptableObject
     public LayerMask ressourceLayer;
     public GameObjectPoolReference projectilePoolRef;
     public float delayBetweenAttacks;
+    public float timeAlive;
 }

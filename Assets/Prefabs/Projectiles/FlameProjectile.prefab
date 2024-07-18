@@ -113,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 15
   hitVFXPool: {fileID: 11400000, guid: 85d86a23b7651c9408d763c6bc1c6b86, type: 2}
-  explosionRadius: 2
+  explosionRadius: 3
   ressourceLayer:
     serializedVersion: 2
     m_Bits: 64

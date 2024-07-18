@@ -20,3 +20,4 @@ MonoBehaviour:
     m_Bits: 64
   projectilePoolRef: {fileID: 11400000, guid: 04b13f18cf7158b40a31077e4ecb814e, type: 2}
   delayBetweenAttacks: 5
+  timeAlive: 60
