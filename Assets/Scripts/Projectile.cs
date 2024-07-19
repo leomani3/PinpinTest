@@ -1,3 +1,4 @@
+using Cinemachine;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,6 +13,12 @@ public class Projectile : MonoBehaviour
 
     private Tween _moveTween;
     private Collider[] _detectedColliders;
+    private CinemachineImpulseSource _impulseSource;
+
+    private void Awake()
+    {
+        _impulseSource = GetComponent<CinemachineImpulseSource>();
+    }
 
     public void Travel(Vector3 targetPos)
     {
@@ -38,5 +45,6 @@ public class Projectile : MonoBehaviour
         }
 
         transform.localScale = Vector3.zero;
+        _impulseSource.GenerateImpulse();
     }
 }

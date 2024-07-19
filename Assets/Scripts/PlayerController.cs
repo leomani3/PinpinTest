@@ -205,8 +205,8 @@ namespace Pinpin
             if (!_invalidSlopeDetected && !_voidDetected && m_hasInput)
             {
                 Vector3 vel = m_inputDir * playerStatCollection.GetStat(PlayerStatType.MoveSpeed);
-                //vel.y = m_rigidBody.velocity.y;
-                vel.y = 0;
+                vel.y = m_rigidBody.velocity.y;
+                //vel.y = 0;
                 m_rigidBody.velocity = vel;
 
                 // Rotate character towards movement direction
