@@ -155,10 +155,12 @@ namespace Pinpin
                 {
                     case RessourceType.Wood:
                         _animator.SetInteger("HarvestingAnimationID", 0);
+                        _animator.speed = playerStatCollection.GetStat(PlayerStatType.ChoppingSpeed);
                         axe.SetActive(true); //Todo : remplacer par un tween
                         break;
                     case RessourceType.Stone:
                         _animator.SetInteger("HarvestingAnimationID", 1);
+                        _animator.speed = playerStatCollection.GetStat(PlayerStatType.MiningSpeed);
                         pickaxe.SetActive(true); //Todo : remplacer par un tween
                         break;
                     default:
@@ -169,6 +171,7 @@ namespace Pinpin
             {
                 _animator.SetLayerWeight(1, 0);
                 _animator.SetBool("Harvesting", false);
+                _animator.speed = 1;
                 HideTools();
             }
         }

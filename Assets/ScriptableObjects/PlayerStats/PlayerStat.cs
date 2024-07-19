@@ -4,8 +4,8 @@ using UnityEngine;
 public enum PlayerStatType
 {
     MoveSpeed,
-    WoodAmage,
-    StoneDamage
+    ChoppingSpeed,
+    MiningSpeed
 }
 
 [CreateAssetMenu(fileName = "PlayerStats", menuName = "ScriptableObjects/PlayerStats")]
@@ -19,8 +19,10 @@ public class PlayerStat : ScriptableObject
 
     [Separator("Upgrade")]
     public Sprite statUpgradeSprite;
-    public float statIncreasePerLevel;
     public CurrencyData currency;
+    [Range(0, 1)] public float statIncreasePerLevel;
+
+    [Separator("Price")]
     public int basePrice;
     public float basePriceMultiplicator;
     public float priceMultiplicatorPerLevel;
@@ -29,14 +31,14 @@ public class PlayerStat : ScriptableObject
 
     public void Init()
     {
-        string[] values = PlayerPrefs.GetString(statID, "0,"+baseValue).Split(',');
+        string[] values = PlayerPrefs.GetString(statID, "0/"+baseValue).Split('/');
         currentLevel = int.Parse(values[0]);
         currentValue = float.Parse(values[1]);
     }
 
     public void Save()
     {
-        PlayerPrefs.SetString(statID, currentLevel+","+ currentValue);
+        PlayerPrefs.SetString(statID, currentLevel+"/"+currentValue);
     }
 
     public void UpgradeStat()

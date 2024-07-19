@@ -17,11 +17,10 @@ public class Upgrade : MonoBehaviour
     private void Start()
     {
         upgradeImage.sprite = stat.statUpgradeSprite;
-        upgradeValueText.text = "x" + (stat.currentLevel * stat.statIncreasePerLevel);
         currencyIcon.sprite = stat.currency.currencySprite;
-        currencyAmountText.text = stat.CurrentPrice.ToString();
 
         stat.currency.onCurrencyValueChange += UpdateVisuals;
+        UpdateVisuals(stat.currency.currencyAmount);
     }
 
     public void Buy()
@@ -45,7 +44,7 @@ public class Upgrade : MonoBehaviour
             button.interactable = false;
         }
 
-        upgradeValueText.text = "x" + (stat.currentLevel * stat.statIncreasePerLevel);
+        upgradeValueText.text = "+" + Mathf.RoundToInt((stat.currentLevel * stat.statIncreasePerLevel) * 100) +"%";
         currencyAmountText.text = stat.CurrentPrice.ToString();
     }
 }

@@ -10,9 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dcd8fb89bf795a34d854f84fcce22472, type: 3}
-  m_Name: WoodDamage
+  m_Name: ChoppingSpeed
   m_EditorClassIdentifier: 
   statType: 1
-  statID: PlayerWoodDamage
-  baseValue: 1
-  currentValue: 0
+  statID: PlayerChoppingSpeed
+  baseValue: 1.5
+  currentValue: 1
+  currentLevel: 0
+  statUpgradeSprite: {fileID: 21300000, guid: 0e82cdb9e6e46954d96fec8a176df8c4, type: 3}
+  currency: {fileID: 11400000, guid: 7b31817da45f3ff4a984c7bcf245fda5, type: 2}
+  statIncreasePerLevel: 0.2
+  basePrice: 40
+  basePriceMultiplicator: 1
+  priceMultiplicatorPerLevel: 0.2

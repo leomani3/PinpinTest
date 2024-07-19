@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dcd8fb89bf795a34d854f84fcce22472, type: 3}
-  m_Name: StoneDamage
+  m_Name: MiningSpeed
   m_EditorClassIdentifier: 
   statType: 2
-  statID: PlayerStoneDamage
-  baseValue: 1
+  statID: PlayerMiningSpeed
+  baseValue: 1.5
   currentValue: 1
   currentLevel: 0
   statUpgradeSprite: {fileID: 21300000, guid: 5efcceec885dc8446bd1149cc488d2ac, type: 3}
-  statIncreasePerLevel: 0.2
   currency: {fileID: 11400000, guid: 03e72bd2bc82b934e96617cfb6353baa, type: 2}
+  statIncreasePerLevel: 0.2
   basePrice: 40
   basePriceMultiplicator: 1
   priceMultiplicatorPerLevel: 0.2

@@ -80,9 +80,11 @@ public class Ressource : MonoBehaviour
             FloatingTextManager.Instance.Spawn(transform.position + ressourceData.floatingTextSpawnOffset, "+" + gainedCurrency.ToString() + " <sprite=\"" + ressourceData.currencyData.currencyName + "\" name=\"" + ressourceData.currencyData.currencyName + "\">");
 
             float damageLeft = damage;
+            print("Avant : damage : " +damage +" / damageLeft : " + damageLeft + " / _currentPhaseLife : " + _currentPhaseLife + " / currentLife : " +_currentLife);
             while (damageLeft > 0)
             {
-                if (damageLeft >= _currentPhaseLife)
+                print("pendant : damageLeft : " + damageLeft + " / _currentPhaseLife : " + _currentPhaseLife + " / currentLife : " + _currentLife);
+                if (damageLeft >= _currentPhaseLife || Mathf.Approximately(damageLeft, _currentPhaseLife))
                 {
                     damageLeft -= _currentPhaseLife;
 
@@ -100,6 +102,8 @@ public class Ressource : MonoBehaviour
                 }
             }
             _currentLife -= damage;
+
+            print("après : damage : " + damage + " / damageLeft : " + damageLeft + " / _currentPhaseLife : " + _currentPhaseLife + " / currentLife : " + _currentLife);
 
             if (_currentLife <= 0)
                 DestroyRessource();
