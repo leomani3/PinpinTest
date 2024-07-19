@@ -220,6 +220,11 @@ namespace Pinpin
                     leftDynamicBone.UpdateParameters();
                     rightDynamicBone.UpdateParameters();
                 }
+
+                if (_movementRaycastHit.collider != null)
+                {
+                    transform.position = transform.position.SetY(_movementRaycastHit.point.y);
+                }
             }
             else
             {
@@ -232,7 +237,6 @@ namespace Pinpin
             }
 
             _animator.SetFloat("Velocity", m_rigidBody.velocity.magnitude);
-
         }
     }
 }

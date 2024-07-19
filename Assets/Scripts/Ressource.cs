@@ -75,7 +75,7 @@ public class Ressource : MonoBehaviour
         if (_currentLife > 0)
         {
             _shakeTween.Kill();
-            _shakeTween = transform.DOShakeScale(0.3f, 0.25f, 3, 90, true);
+            _shakeTween = transform.DOShakeScale(0.1f, 0.2f, 3, 90, true);
 
             int gainedCurrency = ressourceData.currencyDropPer1Damage * Mathf.RoundToInt(damage);
             ressourceData.currencyData.IncreaseCurrency(gainedCurrency);
