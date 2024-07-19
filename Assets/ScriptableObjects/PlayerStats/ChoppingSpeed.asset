@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statType: 1
   statID: PlayerChoppingSpeed
-  baseValue: 1.5
-  currentValue: 1
+  baseValue: 1.25
+  currentValue: 1.5
   currentLevel: 0
   statUpgradeSprite: {fileID: 21300000, guid: 0e82cdb9e6e46954d96fec8a176df8c4, type: 3}
   currency: {fileID: 11400000, guid: 7b31817da45f3ff4a984c7bcf245fda5, type: 2}
