@@ -7,12 +7,8 @@ namespace Pinpin
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] private PlayerStatCollection playerStatCollection;
+        [SerializeField] private PlayerData playerData;
         [SerializeField] private Rigidbody m_rigidBody;
-        [SerializeField] private float m_rotationSpeed = 10.0f;
-        [SerializeField] private Vector3Data playerPositionData;
-        [SerializeField] private LayerMask ressourceLayer;
-        [SerializeField] private float ressourceDetectionRadius;
 
         [Separator("Ears animation")]
         [SerializeField] private DynamicBone leftDynamicBone;
@@ -22,15 +18,9 @@ namespace Pinpin
         [SerializeField] private GameObject axe;
         [SerializeField] private GameObject pickaxe;
 
-        [Separator("Movement refinement")]
-        [SerializeField] private float distanceFromPlayer;
-        [SerializeField] private LayerMask groundLayer;
-        [SerializeField] private float maxSlopeAngle;
 
         [Separator("Pet")]
         [SerializeField] private Transform playerPetTarget;
-        [SerializeField] private Vector3Data playerPetPosition;
-        [SerializeField] private int nbFrameDelay;
 
         private bool m_hasInput = false;
         private Vector3 m_inputDir = Vector3.zero;
@@ -48,8 +38,6 @@ namespace Pinpin
         //Raycasting
         private RaycastHit _movementRaycastHit;
 
-        public PlayerStatCollection PlayerStatCollection => playerStatCollection;
-
         private void Reset()
         {
             print("reset");
@@ -60,18 +48,18 @@ namespace Pinpin
         {
             m_mainCamera = Camera.main;
             _animator = GetComponentInChildren<Animator>();
-            playerStatCollection.Init();
+            playerData.statCollection.Init();
         }
 
         private void MovementRaycast()
         {
             if (m_hasInput)
             {
-                Ray ray = new Ray(transform.position + (m_inputDir * distanceFromPlayer) + new Vector3(0, 4, 0), Vector3.down);
-                if (Physics.Raycast(ray, out _movementRaycastHit, 10, groundLayer))
+                Ray ray = new Ray(transform.position + (m_inputDir * playerData.distanceFromPlayer) + new Vector3(0, 4, 0), Vector3.down);
+                if (Physics.Raycast(ray, out _movementRaycastHit, 10, playerData.groundLayer))
                 {
                     _voidDetected = false;
-                    if (Vector3.Angle(_movementRaycastHit.normal, Vector3.up) <= maxSlopeAngle)
+                    if (Vector3.Angle(_movementRaycastHit.normal, Vector3.up) <= playerData.maxSlopeAngle)
                     {
                         _invalidSlopeDetected = false;
                     }
@@ -117,13 +105,13 @@ namespace Pinpin
 
         private void RecordPosition()
         {
-            if (_positionsByFrame.Count >= nbFrameDelay)
+            if (_positionsByFrame.Count >= playerData.nbFrameDelay)
             {
                 _positionsByFrame.RemoveAt(0);
             }
 
             _positionsByFrame.Add(playerPetTarget.position);
-            playerPetPosition.data = _positionsByFrame[0];
+            playerData.playerPetPosition.data = _positionsByFrame[0];
         }
 
         private void OnDrawGizmos()
@@ -133,7 +121,7 @@ namespace Pinpin
 
         private void DetectNearbyRessource()
         {
-            _detectedRessourceColliders = Physics.OverlapSphere(transform.position + (transform.forward * 0.5f), ressourceDetectionRadius, ressourceLayer);
+            _detectedRessourceColliders = Physics.OverlapSphere(transform.position + (transform.forward * 0.5f), playerData.ressourceDetectionRadius, playerData.ressourceLayer);
 
             _detectedRessources.Clear();
             foreach (Collider collider in _detectedRessourceColliders)
@@ -155,12 +143,12 @@ namespace Pinpin
                 {
                     case RessourceType.Wood:
                         _animator.SetInteger("HarvestingAnimationID", 0);
-                        _animator.speed = playerStatCollection.GetStat(PlayerStatType.ChoppingSpeed);
+                        _animator.speed = playerData.statCollection.GetStat(PlayerStatType.ChoppingSpeed);
                         axe.SetActive(true); //Todo : remplacer par un tween
                         break;
                     case RessourceType.Stone:
                         _animator.SetInteger("HarvestingAnimationID", 1);
-                        _animator.speed = playerStatCollection.GetStat(PlayerStatType.MiningSpeed);
+                        _animator.speed = playerData.statCollection.GetStat(PlayerStatType.MiningSpeed);
                         pickaxe.SetActive(true); //Todo : remplacer par un tween
                         break;
                     default:
@@ -194,7 +182,7 @@ namespace Pinpin
         {
             GetInput();
             MovementRaycast();
-            playerPositionData.data = transform.position;
+            playerData.playerPositionData.data = transform.position;
 
             DetectNearbyRessource();
             RecordPosition();
@@ -204,7 +192,7 @@ namespace Pinpin
         {
             if (!_invalidSlopeDetected && !_voidDetected && m_hasInput)
             {
-                Vector3 vel = m_inputDir * playerStatCollection.GetStat(PlayerStatType.MoveSpeed);
+                Vector3 vel = m_inputDir * playerData.statCollection.GetStat(PlayerStatType.MoveSpeed);
                 vel.y = m_rigidBody.velocity.y;
                 //vel.y = 0;
                 m_rigidBody.velocity = vel;
@@ -213,7 +201,7 @@ namespace Pinpin
                 if (m_inputDir != Vector3.zero)
                 {
                     Quaternion targetRotation = Quaternion.LookRotation(m_inputDir);
-                    m_rigidBody.rotation = Quaternion.Slerp(m_rigidBody.rotation, targetRotation, Time.fixedDeltaTime * m_rotationSpeed);
+                    m_rigidBody.rotation = Quaternion.Slerp(m_rigidBody.rotation, targetRotation, Time.fixedDeltaTime * playerData.rotationSpeed);
 
                     leftDynamicBone.m_Damping = 0.45f;
                     rightDynamicBone.m_Damping = 0.45f;

@@ -13804,6 +13804,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 18454043}
     - target: {fileID: 565931678901813978, guid: be4b2efe986f48747b6b939fd64101ae, type: 3}
+      propertyPath: playerData
+      value: 
+      objectReference: {fileID: 11400000, guid: 15da3361fe7f6c4409e4a3d895c7a3f9, type: 2}
+    - target: {fileID: 565931678901813978, guid: be4b2efe986f48747b6b939fd64101ae, type: 3}
       propertyPath: nbFrameDelay
       value: 50
       objectReference: {fileID: 0}
@@ -13817,7 +13821,7 @@ PrefabInstance:
       objectReference: {fileID: 1637158910}
     - target: {fileID: 565931678901813978, guid: be4b2efe986f48747b6b939fd64101ae, type: 3}
       propertyPath: m_rotationSpeed
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 565931678901813978, guid: be4b2efe986f48747b6b939fd64101ae, type: 3}
       propertyPath: playerPetTarget
