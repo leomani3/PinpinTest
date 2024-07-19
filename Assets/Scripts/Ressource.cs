@@ -16,6 +16,7 @@ public class Ressource : MonoBehaviour
 
     private bool _alive;
     private float _timer;
+    private Tween _shakeTween;
 
     public RessourceType RessourceType => ressourceData.ressourceType;
     public bool Alive => _alive;
@@ -73,17 +74,16 @@ public class Ressource : MonoBehaviour
         damage = Mathf.Clamp(damage, 0, _currentLife);
         if (_currentLife > 0)
         {
-            transform.DOShakeScale(0.2f, 0.25f, 3, 90, true);
+            _shakeTween.Kill();
+            _shakeTween = transform.DOShakeScale(0.3f, 0.25f, 3, 90, true);
 
             int gainedCurrency = ressourceData.currencyDropPer1Damage * Mathf.RoundToInt(damage);
             ressourceData.currencyData.IncreaseCurrency(gainedCurrency);
             FloatingTextManager.Instance.Spawn(transform.position + ressourceData.floatingTextSpawnOffset, "+" + gainedCurrency.ToString() + " <sprite=\"" + ressourceData.currencyData.currencyName + "\" name=\"" + ressourceData.currencyData.currencyName + "\">");
 
             float damageLeft = damage;
-            print("Avant : damage : " +damage +" / damageLeft : " + damageLeft + " / _currentPhaseLife : " + _currentPhaseLife + " / currentLife : " +_currentLife);
             while (damageLeft > 0)
             {
-                print("pendant : damageLeft : " + damageLeft + " / _currentPhaseLife : " + _currentPhaseLife + " / currentLife : " + _currentLife);
                 if (damageLeft >= _currentPhaseLife || Mathf.Approximately(damageLeft, _currentPhaseLife))
                 {
                     damageLeft -= _currentPhaseLife;
@@ -102,8 +102,6 @@ public class Ressource : MonoBehaviour
                 }
             }
             _currentLife -= damage;
-
-            print("après : damage : " + damage + " / damageLeft : " + damageLeft + " / _currentPhaseLife : " + _currentPhaseLife + " / currentLife : " + _currentLife);
 
             if (_currentLife <= 0)
                 DestroyRessource();
