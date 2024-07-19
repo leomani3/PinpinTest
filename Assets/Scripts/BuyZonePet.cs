@@ -18,11 +18,11 @@ public class BuyZonePet : BuyZone
 
         if (seconds > 10)
         {
-            timerText.text = minutes + ":" + seconds;
+            timerText.text = minutes + ":" + seconds + "<sprite=\"Timer\" name=\"Timer\">";
         }
         else
         {
-            timerText.text = minutes + ":0" + seconds;
+            timerText.text = minutes + ":0" + seconds + "<sprite=\"Timer\" name=\"Timer\">";
         }
 
     }

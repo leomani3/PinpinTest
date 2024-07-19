@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPositionData: {fileID: 11400000, guid: c487de0d87ce26d4aaa64b4a314a346e, type: 2}
-  moveSpeed: 5
+  moveSpeed: 20
 --- !u!114 &5098160196600861124
 MonoBehaviour:
   m_ObjectHideFlags: 0

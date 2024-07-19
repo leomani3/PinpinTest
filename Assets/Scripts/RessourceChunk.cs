@@ -30,9 +30,9 @@ public class RessourceChunk : MonoBehaviour
         while (Vector3.Distance(transform.position, playerPositionData.data) > 0.1f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(playerPositionData.data - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * 20);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 20);
 
-            transform.position = Vector3.MoveTowards(transform.position, playerPositionData.data, moveSpeed * Time.fixedDeltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, playerPositionData.data, moveSpeed * Time.deltaTime);
 
             yield return null;
         }

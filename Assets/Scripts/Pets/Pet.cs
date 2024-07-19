@@ -56,11 +56,11 @@ public class Pet : Buyable
             int seconds = TimeSpan.FromSeconds(_timeLeft).Seconds;
             if (seconds > 10)
             {
-                timeLeftText.text = minutes + ":" + seconds;
+                timeLeftText.text = minutes + ":" + seconds + "<sprite=\"Timer\" name=\"Timer\">";
             }
             else
             {
-                timeLeftText.text = minutes + ":0" + seconds;
+                timeLeftText.text = minutes + ":0" + seconds + "<sprite=\"Timer\" name=\"Timer\">";
             }
             if (_timeLeft <= 0)
             {
